@@ -1,8 +1,7 @@
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
-  distDir: 'build',
-  serverExternalPackages: ['ffmpeg-static'],
+serverExternalPackages: ['ffmpeg-static'],
   typescript: {
     ignoreBuildErrors: true,
   },
