@@ -4,7 +4,12 @@ export function middleware(req: NextRequest) {
   const session = req.cookies.get("fpg_session");
   const { pathname } = req.nextUrl;
 
-  if (pathname.startsWith("/login") || pathname.startsWith("/api/auth")) {
+  if (
+    pathname.startsWith("/login") ||
+    pathname.startsWith("/api/auth") ||
+    pathname.startsWith("/media") ||
+    pathname.startsWith("/media-playback")
+  ) {
     if (session?.value === "authenticated" && pathname === "/login") {
       return NextResponse.redirect(new URL("/", req.url));
     }
