@@ -55,7 +55,7 @@ function imageUrl(zipName: string, imageName: string) {
 }
 
 async function readImagesFolder(): Promise<MediaAsset[]> {
-  const folderPath = path.join(process.cwd(), "images");
+  const folderPath = path.join("/home/venkat-koniki/Documents/project/PhotoGrid", "images");
   const entries = await readdir(folderPath, { withFileTypes: true }).catch(() => []);
   const assets: MediaAsset[] = [];
 
@@ -106,7 +106,7 @@ async function readImagesFolder(): Promise<MediaAsset[]> {
 }
 
 async function readVideosFolder(): Promise<MediaAsset[]> {
-  const folderPath = path.join(process.cwd(), "videos");
+  const folderPath = path.join("/home/venkat-koniki/Documents/project/PhotoGrid", "videos");
   const entries = await readdir(folderPath, { withFileTypes: true }).catch(() => []);
 
   const assets = await Promise.all(
