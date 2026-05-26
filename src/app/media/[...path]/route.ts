@@ -82,7 +82,7 @@ export async function GET(
     return new Response("Not found", { status: 404 });
   }
 
-  const baseDirectory = path.resolve(process.cwd(), folder);
+  const baseDirectory = path.resolve("/home/venkat-koniki/Documents/project/PhotoGrid", folder);
   const download = request.nextUrl.searchParams.has("download");
 
   if (folder === "images") {
