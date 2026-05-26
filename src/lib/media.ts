@@ -50,8 +50,9 @@ function videoPlaybackUrl(fileName: string, extension: string) {
   return videoUrl(fileName);
 }
 
-function imageUrl(zipName: string, imageName: string) {
-  return `/media/images/${encodeURIComponent(zipName)}/${encodeURIComponent(imageName)}`;
+function imageUrl(zipName: string, entryPath: string) {
+  const segments = entryPath.split("/").map(encodeURIComponent);
+  return `/media/images/${encodeURIComponent(zipName)}/${segments.join("/")}`;
 }
 
 async function readImagesFolder(): Promise<MediaAsset[]> {
@@ -78,15 +79,16 @@ async function readImagesFolder(): Promise<MediaAsset[]> {
     for (const zipEntry of zip.getEntries()) {
       if (zipEntry.isDirectory) continue;
 
-      const entryName = path.basename(zipEntry.entryName);
+      const entryPath = zipEntry.entryName; // full path inside zip e.g. "Subfolder/photo.jpg"
+      const entryName = path.basename(entryPath);
       const extension = path.extname(entryName).toLowerCase();
 
       if (!imageExtensions.has(extension)) continue;
 
-      const src = imageUrl(entry.name, entryName);
+      const src = imageUrl(entry.name, entryPath);
 
       assets.push({
-        id: `images/${entry.name}/${entryName}`,
+        id: `images/${entry.name}/${entryPath}`,
         kind: "image",
         name: entryName,
         folder: "images",
